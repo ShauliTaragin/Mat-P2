@@ -15,6 +15,8 @@ const int maximum_digit = 1000;
 namespace ariel {
     string mat(int columns, int rows, char symb1, char symb2) {
         vector<char> bad_symbols = {'\n','\r','\t','\0',' '};
+        int const low = 33;
+        int const high = 126;
         if (columns % 2 == 0 || rows % 2 == 0 || rows < 1 || columns < 1) {
             throw invalid_argument("Mat size is always odd ");
         }
@@ -22,7 +24,10 @@ namespace ariel {
            find(bad_symbols.begin(), bad_symbols.end(), symb2) != bad_symbols.end()){
             throw invalid_argument("Bad symbol. Choose a regular character ");
         }
-        vector<vector<char>> matrix( rows, vector<char>( columns ) );
+        if (symb1 < low || symb1 > high || symb2 < low || symb2 > high ){
+            throw invalid_argument("Bad symbol. Choose a regular character ");
+        }
+            vector<vector<char>> matrix( rows, vector<char>( columns ) );
         bool flag = true;
         //I will implement this function by working like an onion i.e. I will create each frame separately
         //starting from external frame until the final center frame.
