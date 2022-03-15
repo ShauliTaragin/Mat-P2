@@ -35,13 +35,15 @@ namespace ariel {
         int start_columns = 0;
         int end_rows = rows;
         int end_columns = columns;
+        // 4 variables above are in charge of the bounds of the frame we color in each iteration
         int row_counter = rows;
         int col_counter = columns;
+        //2 variables above will tell us when we are done creating the mat i.e. when one of them is below 0
         while (col_counter > 0 && row_counter > 0) {
             for (int i = start_rows; i < end_rows; ++i) {
                 for (int j = start_columns; j < end_columns; ++j) {
                     if (i == start_rows || i == end_rows - 1 || j == start_columns || j == end_columns - 1) {
-                        if (flag) {
+                        if (flag) {//simple flag to decide what symbol should be used in this iteration
                             matrix[i][j] = symb1;
                         } else {
                             matrix[i][j] = symb2;
@@ -49,6 +51,8 @@ namespace ariel {
                     }
                 }
             }
+            //basically my 2 inner loops are in charge of iterating a matrix and finding where we should color it
+            // (only in the boundaries) when we finish the 2 inner loops we "move in a tier" and color the next frame
             flag = !flag;//want to make sure to switch between symbols
             start_columns++;
             start_rows++;
